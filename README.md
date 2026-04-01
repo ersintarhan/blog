@@ -52,7 +52,9 @@ Build command automatically:
 
 1. Generates OG images in `public/og/`
 2. Builds the static site
-3. Generates Pagefind search index in `dist/pagefind/`
+3. Generates Pagefind search index
+   - `dist/pagefind/` (Pages/static mode)
+   - `dist/client/pagefind/` (Workers adapter mode)
 
 ## Giscus Comments Setup
 
