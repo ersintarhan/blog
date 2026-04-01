@@ -13,20 +13,20 @@ const allTags = [...new Set(allPosts.flatMap((post) => post.data.tags))].sort();
 ---
 
 <BaseLayout title="blog.sentirum.ai" description="Software engineering, AI, DevOps, research & benchmarks">
-  <section class="relative mb-10 overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-8 sm:p-10 shadow-2xl shadow-sky-950/20">
-    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.16),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(59,130,246,0.14),transparent_24%)]"></div>
+  <section class="relative mb-10 overflow-hidden rounded-[1.75rem] border border-white/8 bg-white/[0.035] p-7 sm:p-9 shadow-xl shadow-black/15">
+    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.08),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(59,130,246,0.06),transparent_20%)]"></div>
 
     <div class="relative z-10 max-w-3xl">
-      <div class="mb-5 inline-flex items-center gap-2 rounded-full border border-sky-400/20 bg-sky-400/10 px-3 py-1 text-xs font-medium tracking-wide text-sky-200">
+      <div class="mb-5 inline-flex items-center gap-2 rounded-full border border-sky-400/15 bg-sky-400/8 px-3 py-1 text-xs font-medium tracking-wide text-sky-200">
         <span class="inline-block h-2 w-2 rounded-full bg-sky-400"></span>
         Engineering • AI • DevOps • Research
       </div>
 
-      <h1 class="max-w-3xl text-5xl sm:text-6xl font-semibold tracking-tight text-white">
+      <h1 class="max-w-3xl text-4xl sm:text-5xl font-semibold tracking-tight text-white">
         blog<span class="text-sky-300">.</span>sentirum<span class="text-sky-300">.</span>ai
       </h1>
 
-      <p class="mt-5 max-w-2xl text-lg sm:text-xl leading-8 text-slate-300">
+      <p class="mt-5 max-w-2xl text-lg leading-8 text-slate-300">
         Technical writing on software engineering, AI systems, DevOps, benchmarks, and research-driven experiments.
       </p>
 
@@ -34,7 +34,7 @@ const allTags = [...new Set(allPosts.flatMap((post) => post.data.tags))].sort();
         {featuredPost && (
           <a
             href={`/blog/${featuredPost.id}`}
-            class="inline-flex items-center gap-2 rounded-full bg-white text-slate-950 px-5 py-2.5 font-medium hover:scale-[1.02] transition-transform"
+            class="inline-flex items-center gap-2 rounded-full bg-white text-slate-950 px-5 py-2.5 font-medium hover:scale-[1.01] transition-transform"
           >
             Read latest post
             <span>→</span>
@@ -42,7 +42,7 @@ const allTags = [...new Set(allPosts.flatMap((post) => post.data.tags))].sort();
         )}
         <a
           href="#topics"
-          class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-slate-200 hover:bg-white/10 transition-colors"
+          class="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.03] px-5 py-2.5 text-slate-200 hover:bg-white/[0.06] transition-colors"
         >
           Browse topics
         </a>
@@ -56,7 +56,7 @@ const allTags = [...new Set(allPosts.flatMap((post) => post.data.tags))].sort();
     </div>
   </section>
 
-  <section class="mb-12 rounded-[1.5rem] border border-white/10 bg-slate-950/70 p-5 sm:p-6 shadow-xl shadow-black/20">
+  <section class="mb-12 rounded-[1.25rem] border border-white/8 bg-white/[0.03] p-5 sm:p-6 shadow-lg shadow-black/10">
     <Search />
   </section>
 
@@ -70,7 +70,7 @@ const allTags = [...new Set(allPosts.flatMap((post) => post.data.tags))].sort();
         {allTags.map((tag) => (
           <a
             href={`/tags/${tag}`}
-            class="rounded-full border border-white/10 bg-white/5 px-3.5 py-2 text-sm text-slate-300 hover:border-sky-400/30 hover:bg-sky-400/10 hover:text-sky-200 transition-all"
+            class="rounded-full border border-white/8 bg-white/[0.03] px-3.5 py-2 text-sm text-slate-300 hover:border-white/15 hover:bg-white/[0.05] transition-all"
           >
             #{tag}
           </a>
@@ -80,16 +80,16 @@ const allTags = [...new Set(allPosts.flatMap((post) => post.data.tags))].sort();
   )}
 
   {featuredPost && (
-    <section class="mb-14 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+    <section class="mb-14 grid gap-5 lg:grid-cols-[1.2fr_0.8fr]">
       <a
         href={`/blog/${featuredPost.id}`}
-        class="group overflow-hidden rounded-[1.75rem] border border-white/10 bg-gradient-to-b from-white/8 to-white/[0.03] shadow-2xl shadow-sky-950/20"
+        class="group overflow-hidden rounded-[1.5rem] border border-white/8 bg-white/[0.035] shadow-xl shadow-black/15"
       >
-        <div class="aspect-[16/9] overflow-hidden border-b border-white/10 bg-slate-900">
+        <div class="aspect-[16/9] overflow-hidden border-b border-white/8 bg-slate-900">
           <img
             src={featuredPost.data.heroImage ?? `/og/${featuredPost.id}.png`}
             alt={featuredPost.data.title}
-            class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
           />
         </div>
         <div class="p-6 sm:p-7">
@@ -104,7 +104,7 @@ const allTags = [...new Set(allPosts.flatMap((post) => post.data.tags))].sort();
             <span class="h-1 w-1 rounded-full bg-slate-600"></span>
             <span>Featured</span>
           </div>
-          <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight text-white group-hover:text-sky-200 transition-colors">
+          <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight text-white group-hover:text-slate-100 transition-colors">
             {featuredPost.data.title}
           </h2>
           <p class="mt-4 text-base leading-7 text-slate-300">
@@ -118,7 +118,7 @@ const allTags = [...new Set(allPosts.flatMap((post) => post.data.tags))].sort();
         </div>
       </a>
 
-      <div class="rounded-[1.75rem] border border-white/10 bg-white/[0.03] p-5 sm:p-6">
+      <div class="rounded-[1.5rem] border border-white/8 bg-white/[0.025] p-5 sm:p-6">
         <div class="mb-5 flex items-center gap-3">
           <div class="h-2 w-2 rounded-full bg-emerald-400"></div>
           <h3 class="text-sm font-semibold uppercase tracking-[0.18em] text-slate-400">Latest writing</h3>
@@ -127,7 +127,7 @@ const allTags = [...new Set(allPosts.flatMap((post) => post.data.tags))].sort();
           {otherPosts.slice(0, 3).map((post) => (
             <a
               href={`/blog/${post.id}`}
-              class="block rounded-2xl border border-white/8 bg-white/[0.025] p-4 hover:border-sky-400/25 hover:bg-sky-400/[0.05] transition-all"
+              class="block rounded-2xl border border-white/8 bg-white/[0.02] p-4 hover:border-white/15 hover:bg-white/[0.04] transition-all"
             >
               <div class="mb-2 text-xs uppercase tracking-wide text-slate-500">
                 {post.data.pubDate.toLocaleDateString("en-us", {
@@ -157,7 +157,7 @@ const allTags = [...new Set(allPosts.flatMap((post) => post.data.tags))].sort();
 
     <div class="grid gap-5 md:grid-cols-2">
       {allPosts.map((post) => (
-        <article class="group rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-5 sm:p-6 hover:-translate-y-0.5 hover:border-sky-400/25 hover:bg-white/[0.05] transition-all duration-200">
+        <article class="group rounded-[1.35rem] border border-white/8 bg-white/[0.025] p-5 sm:p-6 hover:border-white/15 hover:bg-white/[0.04] transition-all duration-200">
           <a href={`/blog/${post.id}`} class="block">
             <div class="mb-3 flex flex-wrap items-center gap-2 text-sm text-slate-400">
               <time datetime={post.data.pubDate.toISOString()}>
@@ -172,7 +172,7 @@ const allTags = [...new Set(allPosts.flatMap((post) => post.data.tags))].sort();
                 <span class="text-sky-300/90">#{tag}</span>
               ))}
             </div>
-            <h3 class="text-xl font-semibold tracking-tight text-white group-hover:text-sky-200 transition-colors">
+            <h3 class="text-xl font-semibold tracking-tight text-white group-hover:text-slate-100 transition-colors">
               {post.data.title}
             </h3>
             <p class="mt-3 text-sm leading-7 text-slate-400 line-clamp-3">

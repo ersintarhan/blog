@@ -9,7 +9,7 @@ html {
 }
 
 body {
-  background: #040816;
+  background: #050814;
   color: #e5eefb;
   font-family: "Inter", system-ui, -apple-system, sans-serif;
 }
@@ -26,9 +26,9 @@ h6,
 
 .prose {
   max-width: none;
-  color: #cbd5e1;
-  line-height: 1.9;
-  font-size: 1.05rem;
+  color: #d3ddec;
+  line-height: 1.85;
+  font-size: 1.04rem;
 }
 
 .prose h1 {
@@ -146,7 +146,7 @@ h6,
   overflow: hidden;
   border-radius: 1rem;
   border-style: hidden;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06);
 }
 
 .prose th,
@@ -189,7 +189,7 @@ h6,
   --pagefind-ui-primary: #7dd3fc;
   --pagefind-ui-text: #e2e8f0;
   --pagefind-ui-background: transparent;
-  --pagefind-ui-border: rgba(255, 255, 255, 0.1);
+  --pagefind-ui-border: rgba(255, 255, 255, 0.08);
   --pagefind-ui-tag: rgba(15, 23, 42, 0.9);
   --pagefind-ui-border-width: 1px;
   --pagefind-ui-border-radius: 1rem;
@@ -197,7 +197,7 @@ h6,
 }
 
 .pagefind-ui__search-input {
-  min-height: 4rem;
+  min-height: 3.7rem;
   padding-inline: 1.1rem;
   background: rgba(255, 255, 255, 0.03);
   color: #fff;
