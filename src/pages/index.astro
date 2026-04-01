@@ -7,30 +7,70 @@ const allPosts = (await getCollection("blog"))
   .filter((post) => !post.data.draft)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
+const featuredPost = allPosts[0];
+const otherPosts = allPosts.slice(1);
 const allTags = [...new Set(allPosts.flatMap((post) => post.data.tags))].sort();
 ---
 
 <BaseLayout title="blog.sentirum.ai" description="Software engineering, AI, DevOps, research & benchmarks">
-  <!-- Hero -->
-  <section class="mb-12">
-    <h1 class="text-4xl font-bold tracking-tight mb-3">
-      blog.sentirum.ai
-    </h1>
-    <p class="text-lg text-gray-600 dark:text-gray-400">
-      Software engineering, AI, DevOps, research & benchmarks.
-    </p>
+  <section class="relative mb-10 overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-8 sm:p-10 shadow-2xl shadow-sky-950/20">
+    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.16),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(59,130,246,0.14),transparent_24%)]"></div>
+
+    <div class="relative z-10 max-w-3xl">
+      <div class="mb-5 inline-flex items-center gap-2 rounded-full border border-sky-400/20 bg-sky-400/10 px-3 py-1 text-xs font-medium tracking-wide text-sky-200">
+        <span class="inline-block h-2 w-2 rounded-full bg-sky-400"></span>
+        Engineering • AI • DevOps • Research
+      </div>
+
+      <h1 class="max-w-3xl text-5xl sm:text-6xl font-semibold tracking-tight text-white">
+        blog<span class="text-sky-300">.</span>sentirum<span class="text-sky-300">.</span>ai
+      </h1>
+
+      <p class="mt-5 max-w-2xl text-lg sm:text-xl leading-8 text-slate-300">
+        Technical writing on software engineering, AI systems, DevOps, benchmarks, and research-driven experiments.
+      </p>
+
+      <div class="mt-8 flex flex-wrap items-center gap-4 text-sm">
+        {featuredPost && (
+          <a
+            href={`/blog/${featuredPost.id}`}
+            class="inline-flex items-center gap-2 rounded-full bg-white text-slate-950 px-5 py-2.5 font-medium hover:scale-[1.02] transition-transform"
+          >
+            Read latest post
+            <span>→</span>
+          </a>
+        )}
+        <a
+          href="#topics"
+          class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-slate-200 hover:bg-white/10 transition-colors"
+        >
+          Browse topics
+        </a>
+      </div>
+
+      <div class="mt-8 flex flex-wrap gap-6 text-sm text-slate-400">
+        <div><span class="text-white font-semibold">{allPosts.length}</span> posts</div>
+        <div><span class="text-white font-semibold">{allTags.length}</span> topics</div>
+        <div><span class="text-white font-semibold">English</span> first</div>
+      </div>
+    </div>
   </section>
 
-  <Search />
+  <section class="mb-12 rounded-[1.5rem] border border-white/10 bg-slate-950/70 p-5 sm:p-6 shadow-xl shadow-black/20">
+    <Search />
+  </section>
 
-  <!-- Tags -->
   {allTags.length > 0 && (
-    <section class="mb-8">
-      <div class="flex flex-wrap gap-2">
+    <section id="topics" class="mb-12">
+      <div class="mb-4 flex items-center justify-between gap-4">
+        <h2 class="text-sm font-semibold uppercase tracking-[0.18em] text-slate-400">Topics</h2>
+        <div class="h-px flex-1 bg-gradient-to-r from-white/10 to-transparent"></div>
+      </div>
+      <div class="flex flex-wrap gap-2.5">
         {allTags.map((tag) => (
           <a
             href={`/tags/${tag}`}
-            class="text-xs px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-blue-900/30 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
+            class="rounded-full border border-white/10 bg-white/5 px-3.5 py-2 text-sm text-slate-300 hover:border-sky-400/30 hover:bg-sky-400/10 hover:text-sky-200 transition-all"
           >
             #{tag}
           </a>
@@ -39,34 +79,108 @@ const allTags = [...new Set(allPosts.flatMap((post) => post.data.tags))].sort();
     </section>
   )}
 
-  <!-- Posts -->
-  <section class="space-y-8">
-    {allPosts.map((post) => (
-      <article class="group">
-        <a href={`/blog/${post.id}`} class="block">
-          <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-1">
-            <time datetime={post.data.pubDate.toISOString()}>
-              {post.data.pubDate.toLocaleDateString("en-us", {
+  {featuredPost && (
+    <section class="mb-14 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+      <a
+        href={`/blog/${featuredPost.id}`}
+        class="group overflow-hidden rounded-[1.75rem] border border-white/10 bg-gradient-to-b from-white/8 to-white/[0.03] shadow-2xl shadow-sky-950/20"
+      >
+        <div class="aspect-[16/9] overflow-hidden border-b border-white/10 bg-slate-900">
+          <img
+            src={featuredPost.data.heroImage ?? `/og/${featuredPost.id}.png`}
+            alt={featuredPost.data.title}
+            class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+          />
+        </div>
+        <div class="p-6 sm:p-7">
+          <div class="mb-3 flex flex-wrap items-center gap-3 text-sm text-slate-400">
+            <time datetime={featuredPost.data.pubDate.toISOString()}>
+              {featuredPost.data.pubDate.toLocaleDateString("en-us", {
                 year: "numeric",
-                month: "short",
+                month: "long",
                 day: "numeric",
               })}
             </time>
-            {post.data.tags.length > 0 && (
-              <span class="text-gray-300 dark:text-gray-600">·</span>
-            )}
-            {post.data.tags.slice(0, 3).map((tag) => (
-              <span class="text-blue-600 dark:text-blue-400">#{tag}</span>
+            <span class="h-1 w-1 rounded-full bg-slate-600"></span>
+            <span>Featured</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight text-white group-hover:text-sky-200 transition-colors">
+            {featuredPost.data.title}
+          </h2>
+          <p class="mt-4 text-base leading-7 text-slate-300">
+            {featuredPost.data.description}
+          </p>
+          <div class="mt-5 flex flex-wrap gap-2">
+            {featuredPost.data.tags.slice(0, 4).map((tag) => (
+              <span class="rounded-full bg-white/6 px-3 py-1 text-xs text-slate-300">#{tag}</span>
             ))}
           </div>
-          <h2 class="text-xl font-semibold group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-1">
-            {post.data.title}
-          </h2>
-          <p class="text-gray-600 dark:text-gray-400 text-sm line-clamp-2">
-            {post.data.description}
-          </p>
-        </a>
-      </article>
-    ))}
+        </div>
+      </a>
+
+      <div class="rounded-[1.75rem] border border-white/10 bg-white/[0.03] p-5 sm:p-6">
+        <div class="mb-5 flex items-center gap-3">
+          <div class="h-2 w-2 rounded-full bg-emerald-400"></div>
+          <h3 class="text-sm font-semibold uppercase tracking-[0.18em] text-slate-400">Latest writing</h3>
+        </div>
+        <div class="space-y-4">
+          {otherPosts.slice(0, 3).map((post) => (
+            <a
+              href={`/blog/${post.id}`}
+              class="block rounded-2xl border border-white/8 bg-white/[0.025] p-4 hover:border-sky-400/25 hover:bg-sky-400/[0.05] transition-all"
+            >
+              <div class="mb-2 text-xs uppercase tracking-wide text-slate-500">
+                {post.data.pubDate.toLocaleDateString("en-us", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })}
+              </div>
+              <h4 class="text-lg font-semibold tracking-tight text-white">
+                {post.data.title}
+              </h4>
+              <p class="mt-2 text-sm leading-6 text-slate-400 line-clamp-3">
+                {post.data.description}
+              </p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section>
+    <div class="mb-5 flex items-center justify-between gap-4">
+      <h2 class="text-sm font-semibold uppercase tracking-[0.18em] text-slate-400">All posts</h2>
+      <div class="h-px flex-1 bg-gradient-to-r from-white/10 to-transparent"></div>
+    </div>
+
+    <div class="grid gap-5 md:grid-cols-2">
+      {allPosts.map((post) => (
+        <article class="group rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-5 sm:p-6 hover:-translate-y-0.5 hover:border-sky-400/25 hover:bg-white/[0.05] transition-all duration-200">
+          <a href={`/blog/${post.id}`} class="block">
+            <div class="mb-3 flex flex-wrap items-center gap-2 text-sm text-slate-400">
+              <time datetime={post.data.pubDate.toISOString()}>
+                {post.data.pubDate.toLocaleDateString("en-us", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })}
+              </time>
+              {post.data.tags.length > 0 && <span class="text-slate-600">·</span>}
+              {post.data.tags.slice(0, 3).map((tag) => (
+                <span class="text-sky-300/90">#{tag}</span>
+              ))}
+            </div>
+            <h3 class="text-xl font-semibold tracking-tight text-white group-hover:text-sky-200 transition-colors">
+              {post.data.title}
+            </h3>
+            <p class="mt-3 text-sm leading-7 text-slate-400 line-clamp-3">
+              {post.data.description}
+            </p>
+          </a>
+        </article>
+      ))}
+    </div>
   </section>
 </BaseLayout>
