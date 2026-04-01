@@ -11,9 +11,11 @@ export default defineConfig({
   site: "https://blog.sentirum.ai",
   output: "static",
   integrations: [mdx(), sitemap()],
+
   vite: {
     plugins: [tailwindcss()],
   },
+
   markdown: {
     remarkPlugins: [remarkMath],
     rehypePlugins: [rehypeKatex],
@@ -22,4 +24,6 @@ export default defineConfig({
       wrap: true,
     },
   },
+
+  adapter: cloudflare(),
 });
