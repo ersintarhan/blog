@@ -1,43 +1,68 @@
-# Astro Starter Kit: Minimal
+# blog.sentirum.ai
 
-```sh
-npm create astro@latest -- --template minimal
+Technical blog built with Astro.
+
+## Stack
+
+- Astro 6 (static output)
+- MD/MDX content collections
+- Tailwind CSS 4
+- KaTeX math rendering
+- RSS + sitemap
+- Pagefind local search
+- Giscus comments (optional)
+
+## Local Development
+
+```bash
+npm install
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Open: `http://localhost:4321`
 
-## 🚀 Project Structure
+## New Post
 
-Inside of your Astro project, you'll see the following folders and files:
+Add a file under:
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+- `src/content/blog/my-post.md`
+- or `src/content/blog/my-post.mdx`
+
+Example frontmatter:
+
+```yaml
+---
+title: "My Post"
+description: "Post description"
+pubDate: 2026-04-01
+tags: ["ai", "devops"]
+draft: false
+---
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Build
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+```bash
+npm run build
+```
 
-Any static assets, like images, can be placed in the `public/` directory.
+Build command also generates a Pagefind search index inside `dist/pagefind/`.
 
-## 🧞 Commands
+## Giscus Comments Setup
 
-All commands are run from the root of the project, from a terminal:
+1. Enable **GitHub Discussions** on your repo.
+2. Go to `https://giscus.app` and configure your site.
+3. Copy values into `.env` from `.env.example`.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+Required vars:
 
-## 👀 Want to learn more?
+- `PUBLIC_GISCUS_REPO`
+- `PUBLIC_GISCUS_REPO_ID`
+- `PUBLIC_GISCUS_CATEGORY_ID`
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## Deploy (Cloudflare Pages)
+
+- Build command: `npm run build`
+- Output directory: `dist`
+- Production branch: `main`
+- Custom domain: `blog.sentirum.ai`

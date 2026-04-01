@@ -102,3 +102,15 @@ body {
 ::-webkit-scrollbar-thumb {
   @apply bg-gray-300 dark:bg-gray-700 rounded;
 }
+
+/* Pagefind */
+.pagefind-ui {
+  --pagefind-ui-scale: 0.95;
+  --pagefind-ui-primary: #60a5fa;
+  --pagefind-ui-text: inherit;
+  --pagefind-ui-background: transparent;
+  --pagefind-ui-border: #334155;
+  --pagefind-ui-tag: #1e293b;
+  --pagefind-ui-border-width: 1px;
+  --pagefind-ui-border-radius: 0.75rem;
+}

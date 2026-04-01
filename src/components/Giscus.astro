@@ -1,0 +1,38 @@
+---
+const repo = import.meta.env.PUBLIC_GISCUS_REPO;
+const repoId = import.meta.env.PUBLIC_GISCUS_REPO_ID;
+const category = import.meta.env.PUBLIC_GISCUS_CATEGORY ?? "General";
+const categoryId = import.meta.env.PUBLIC_GISCUS_CATEGORY_ID;
+const mapping = import.meta.env.PUBLIC_GISCUS_MAPPING ?? "pathname";
+const theme = import.meta.env.PUBLIC_GISCUS_THEME ?? "preferred_color_scheme";
+
+const configured = Boolean(repo && repoId && categoryId);
+---
+
+<section class="mt-12 border-t border-gray-200 dark:border-gray-800 pt-8">
+  <h2 class="text-xl font-semibold mb-4">Comments</h2>
+
+  {configured ? (
+    <script
+      src="https://giscus.app/client.js"
+      data-repo={repo}
+      data-repo-id={repoId}
+      data-category={category}
+      data-category-id={categoryId}
+      data-mapping={mapping}
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="top"
+      data-theme={theme}
+      data-lang="en"
+      data-loading="lazy"
+      crossorigin="anonymous"
+      async
+    ></script>
+  ) : (
+    <p class="text-sm text-gray-500 dark:text-gray-400">
+      Giscus is not configured yet. Set <code>PUBLIC_GISCUS_*</code> variables to enable comments.
+    </p>
+  )}
+</section>

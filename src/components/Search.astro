@@ -1,0 +1,41 @@
+<section class="mb-10">
+  <div id="search" class="pagefind-search"></div>
+</section>
+
+<script is:inline>
+  (async () => {
+    try {
+      const cssHref = "/pagefind/pagefind-ui.css";
+      if (!document.querySelector(`link[href="${cssHref}"]`)) {
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = cssHref;
+        document.head.appendChild(link);
+      }
+
+      const script = document.createElement("script");
+      script.src = "/pagefind/pagefind-ui.js";
+      script.onload = () => {
+        // @ts-ignore
+        new window.PagefindUI({
+          element: "#search",
+          showSubResults: true,
+          showImages: false,
+          resetStyles: false,
+          translations: {
+            placeholder: "Search posts...",
+          },
+        });
+      };
+      script.onerror = () => {
+        const el = document.getElementById("search");
+        if (el) {
+          el.innerHTML = "<p class='text-sm text-gray-500 dark:text-gray-400'>Search index builds on production deploys.</p>";
+        }
+      };
+      document.head.appendChild(script);
+    } catch (_err) {
+      // no-op
+    }
+  })();
+</script>

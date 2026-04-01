@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/Base.astro";
+import Search from "../components/Search.astro";
 import { getCollection } from "astro:content";
 
 const allPosts = (await getCollection("blog"))
@@ -19,6 +20,8 @@ const allTags = [...new Set(allPosts.flatMap((post) => post.data.tags))].sort();
       Software engineering, AI, DevOps, research & benchmarks.
     </p>
   </section>
+
+  <Search />
 
   <!-- Tags -->
   {allTags.length > 0 && (
