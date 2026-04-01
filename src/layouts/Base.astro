@@ -4,9 +4,11 @@ import "../styles/global.css";
 export interface Props {
   title: string;
   description?: string;
+  ogImage?: string;
 }
 
-const { title, description = "" } = Astro.props;
+const { title, description = "", ogImage } = Astro.props;
+const resolvedOgImage = new URL(ogImage ?? "/og/site.png", Astro.site ?? Astro.url).toString();
 ---
 
 <!doctype html>
@@ -21,6 +23,12 @@ const { title, description = "" } = Astro.props;
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={Astro.url.href} />
+    <meta property="og:image" content={resolvedOgImage} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={resolvedOgImage} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="alternate" type="application/rss+xml" title={title} href="/rss.xml" />

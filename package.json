@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && pagefind --site dist",
+    "build": "node scripts/generate-og.mjs && astro build && pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -23,6 +23,9 @@
     "tailwindcss": "^4.2.2"
   },
   "devDependencies": {
-    "pagefind": "^1.4.0"
+    "fast-glob": "^3.3.3",
+    "gray-matter": "^4.0.3",
+    "pagefind": "^1.4.0",
+    "sharp": "^0.34.5"
   }
 }

@@ -9,6 +9,7 @@ Technical blog built with Astro.
 - Tailwind CSS 4
 - KaTeX math rendering
 - RSS + sitemap
+- Auto-generated OG images (per post)
 - Pagefind local search
 - Giscus comments (optional)
 
@@ -36,6 +37,7 @@ title: "My Post"
 description: "Post description"
 pubDate: 2026-04-01
 tags: ["ai", "devops"]
+ogImage: "/og/custom-image.png" # optional override
 draft: false
 ---
 ```
@@ -46,7 +48,11 @@ draft: false
 npm run build
 ```
 
-Build command also generates a Pagefind search index inside `dist/pagefind/`.
+Build command automatically:
+
+1. Generates OG images in `public/og/`
+2. Builds the static site
+3. Generates Pagefind search index in `dist/pagefind/`
 
 ## Giscus Comments Setup
 

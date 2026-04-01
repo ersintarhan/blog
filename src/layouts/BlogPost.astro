@@ -8,6 +8,8 @@ export interface Props {
   updatedDate?: Date;
   tags?: string[];
   heroImage?: string;
+  ogImage?: string;
+  slug?: string;
 }
 
 const {
@@ -17,7 +19,14 @@ const {
   updatedDate,
   tags = [],
   heroImage,
+  ogImage,
+  slug,
 } = Astro.props;
+
+const resolvedOgImage = new URL(
+  ogImage ?? (slug ? `/og/${slug}.png` : "/og/site.png"),
+  Astro.site ?? Astro.url
+).toString();
 ---
 
 <!doctype html>
@@ -33,13 +42,13 @@ const {
     <meta property="og:description" content={description} />
     <meta property="og:type" content="article" />
     <meta property="og:url" content={Astro.url.href} />
-    {heroImage && <meta property="og:image" content={heroImage} />}
+    <meta property="og:image" content={resolvedOgImage} />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    {heroImage && <meta name="twitter:image" content={heroImage} />}
+    <meta name="twitter:image" content={resolvedOgImage} />
 
     <link
       rel="icon"

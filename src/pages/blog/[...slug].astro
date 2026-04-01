@@ -22,6 +22,8 @@ const { Content } = await render(post);
   updatedDate={post.data.updatedDate}
   tags={post.data.tags}
   heroImage={post.data.heroImage}
+  ogImage={post.data.ogImage}
+  slug={post.id}
 >
   <Content />
   <Giscus />
