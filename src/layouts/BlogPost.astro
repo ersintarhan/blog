@@ -1,4 +1,6 @@
 ---
+import "../styles/global.css";
+
 export interface Props {
   title: string;
   description?: string;
@@ -50,8 +52,8 @@ const {
       title={title}
       href="/rss.xml"
     />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
 
-    <!-- KaTeX CSS is loaded via global.css -->
     <title>{title}</title>
   </head>
   <body class="min-h-screen flex flex-col">
