@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" fill="#0f172a"/>
+  <text x="600" y="280" font-family="system-ui, sans-serif" font-size="72" fill="#60a5fa" text-anchor="middle" font-weight="bold">LLM Benchmark</text>
+  <text x="600" y="360" font-family="system-ui, sans-serif" font-size="32" fill="#94a3b8" text-anchor="middle">Token Throughput Across Providers</text>
+  <rect x="100" y="440" width="1000" height="4" rx="2" fill="#1e293b"/>
+  <rect x="100" y="440" width="750" height="4" rx="2" fill="#60a5fa"/>
+</svg>

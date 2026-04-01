@@ -1,0 +1,68 @@
+---
+title: "LLM Benchmark: Comparing Token Throughput Across Providers"
+description: "A deep-dive benchmark comparing token generation throughput, latency, and cost across major LLM API providers."
+pubDate: 2026-04-01
+tags: ["ai", "benchmark", "llm", "performance"]
+heroImage: "/images/llm-benchmark.svg"
+---
+
+## TL;DR
+
+We benchmarked **7 LLM providers** across 3 model sizes to measure real-world token throughput, time-to-first-token (TTFT), and cost-per-1M tokens.
+
+## Methodology
+
+Each provider was tested with:
+
+- **Prompt:** 500-token system prompt + 100-token user message
+- **Max tokens:** 1024
+- **Concurrency:** 1 (sequential) and 10 (parallel)
+- **Runs:** 50 per configuration
+- **Metric:** tokens/second (output), TTFT, total wall-clock time
+
+### Providers Tested
+
+| Provider | Model | Context Window |
+|----------|-------|---------------|
+| OpenAI | GPT-4o | 128K |
+| Anthropic | Claude Sonnet 4 | 200K |
+| Google | Gemini 2.5 Pro | 1M |
+| Meta | Llama 3.3 70B | 128K |
+| Mistral | Mistral Large | 128K |
+| DeepSeek | DeepSeek V3 | 128K |
+| Groq | Llama 3.3 70B | 128K |
+
+## Results
+
+### Token Throughput (tokens/sec, sequential)
+
+```
+Groq (Llama 3.3 70B)    ████████████████████████  ~800 tok/s
+DeepSeek V3              ██████████████            ~480 tok/s
+Gemini 2.5 Pro           ██████████                ~340 tok/s
+GPT-4o                   ████████                  ~270 tok/s
+Claude Sonnet 4          ███████                   ~240 tok/s
+Mistral Large            ██████                    ~200 tok/s
+Meta (Llama 3.3 70B)     █████                     ~170 tok/s
+```
+
+### Cost per 1M Output Tokens
+
+The cost efficiency varies dramatically:
+
+$$
+\text{Cost Efficiency} = \frac{\text{Tokens/sec}}{\text{Cost per 1M tokens}} \times 1000
+$$
+
+## Key Takeaways
+
+1. **Groq** is the undisputed throughput king — but limited model selection
+2. **DeepSeek V3** offers the best price/performance ratio
+3. **Claude Sonnet 4** and **GPT-4o** lead in quality-critical tasks
+4. **Gemini 2.5 Pro** wins on long-context workloads
+
+> Full benchmark data and scripts available on [GitHub](https://github.com).
+
+---
+
+*This is a sample post to demonstrate the blog's capabilities — code blocks, tables, math, and more.*

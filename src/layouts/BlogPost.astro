@@ -1,0 +1,149 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+  pubDate?: Date;
+  updatedDate?: Date;
+  tags?: string[];
+  heroImage?: string;
+}
+
+const {
+  title,
+  description = "",
+  pubDate,
+  updatedDate,
+  tags = [],
+  heroImage,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content={Astro.url.href} />
+    {heroImage && <meta property="og:image" content={heroImage} />}
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {heroImage && <meta name="twitter:image" content={heroImage} />}
+
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/favicon.svg"
+    />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={title}
+      href="/rss.xml"
+    />
+
+    <!-- KaTeX CSS is loaded via global.css -->
+    <title>{title}</title>
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <!-- Nav -->
+    <nav class="border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-950/80 backdrop-blur-sm sticky top-0 z-50">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-14">
+          <a href="/" class="font-bold text-lg tracking-tight hover:opacity-80 transition-opacity">
+            blog.sentirum.ai
+          </a>
+          <div class="flex items-center gap-4 text-sm">
+            <a href="/" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Home</a>
+            <a href="/about" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">About</a>
+            <a href="/rss.xml" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">RSS</a>
+            <button id="theme-toggle" class="p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" aria-label="Toggle dark mode">
+              <svg class="w-5 h-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+              <svg class="w-5 h-5 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main -->
+    <main class="flex-1 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+      <!-- Hero image -->
+      {heroImage && (
+        <img src={heroImage} alt={title} class="w-full rounded-xl mb-6 shadow-lg" />
+      )}
+
+      <!-- Tags -->
+      {tags.length > 0 && (
+        <div class="flex flex-wrap gap-2 mb-4">
+          {tags.map((tag) => (
+            <a href={`/tags/${tag}`} class="text-xs px-2.5 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors">
+              {tag}
+            </a>
+          ))}
+        </div>
+      )}
+
+      <!-- Dates -->
+      <div class="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400 mb-6">
+        {pubDate && (
+          <time datetime={pubDate.toISOString()}>
+            {pubDate.toLocaleDateString("en-us", { year: "numeric", month: "long", day: "numeric" })}
+          </time>
+        )}
+        {updatedDate && (
+          <span>
+            (Updated: <time datetime={updatedDate.toISOString()}>{updatedDate.toLocaleDateString("en-us", { year: "numeric", month: "long", day: "numeric" })}</time>)
+          </span>
+        )}
+      </div>
+
+      <!-- Content -->
+      <article class="prose">
+        <slot />
+      </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-200 dark:border-gray-800 py-6">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm text-gray-500 dark:text-gray-400">
+        <p>&copy; {new Date().getFullYear()} sentirum.ai — Built with Astro</p>
+      </div>
+    </footer>
+
+    <!-- Dark mode script -->
+    <script is:inline>
+      const toggle = document.getElementById('theme-toggle');
+      const html = document.documentElement;
+
+      function getTheme() {
+        return localStorage.getItem('theme') || 
+          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      }
+
+      function setTheme(theme) {
+        html.classList.toggle('dark', theme === 'dark');
+        localStorage.setItem('theme', theme);
+      }
+
+      setTheme(getTheme());
+
+      toggle?.addEventListener('click', () => {
+        setTheme(html.classList.contains('dark') ? 'light' : 'dark');
+      });
+    </script>
+  </body>
+</html>
