@@ -29,7 +29,7 @@
     "gray-matter": "^4.0.3",
     "pagefind": "^1.4.0",
     "sharp": "^0.34.5",
-    "wrangler": "^4.79.0"
+    "wrangler": "^4.95.0"
   },
   "overrides": {
     "vite": "^7"
